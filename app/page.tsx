@@ -29,6 +29,7 @@ type ConversionItem = {
   previewUrl: string;
   width?: number;
   height?: number;
+  resized?: boolean;
   webp?: Blob;
   status: ConversionStatus;
   error?: string;
@@ -55,6 +56,7 @@ declare global {
 }
 
 const acceptedTypes = new Set(['image/png', 'image/jpeg']);
+const maximumWidth = 1920;
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -74,8 +76,13 @@ function webpName(name: string) {
 async function convertToWebp(file: File, quality: number) {
   const bitmap = await createImageBitmap(file);
   const canvas = document.createElement('canvas');
-  canvas.width = bitmap.width;
-  canvas.height = bitmap.height;
+  const resized = bitmap.width > maximumWidth;
+  const width = resized ? maximumWidth : bitmap.width;
+  const height = resized
+    ? Math.round((bitmap.height / bitmap.width) * maximumWidth)
+    : bitmap.height;
+  canvas.width = width;
+  canvas.height = height;
 
   const context = canvas.getContext('2d', { alpha: true });
   if (!context) {
@@ -84,8 +91,6 @@ async function convertToWebp(file: File, quality: number) {
   }
 
   context.drawImage(bitmap, 0, 0);
-  const width = bitmap.width;
-  const height = bitmap.height;
   bitmap.close();
 
   const webp = await new Promise<Blob>((resolve, reject) => {
@@ -99,7 +104,7 @@ async function convertToWebp(file: File, quality: number) {
     );
   });
 
-  return { webp, width, height };
+  return { webp, width, height, resized };
 }
 
 function triggerDownload(blob: Blob, filename: string) {
@@ -119,6 +124,7 @@ export default function Home() {
   const [dragging, setDragging] = useState(false);
   const [message, setMessage] = useState('');
   const [zipping, setZipping] = useState(false);
+  const [resultNotice, setResultNotice] = useState<'converting' | 'ready' | ''>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const itemsRef = useRef<ConversionItem[]>([]);
   const qualityRef = useRef(quality);
@@ -199,6 +205,7 @@ export default function Home() {
           error: undefined,
         })),
       );
+      setResultNotice('converting');
 
       const results = await Promise.all(
         current.map(async (item) => {
@@ -228,6 +235,7 @@ export default function Home() {
           return { ...item, ...result, status: 'done', error: undefined };
         }),
       );
+      setResultNotice(results.some((result) => !('error' in result)) ? 'ready' : '');
     }, 260);
 
     return () => window.clearTimeout(timer);
@@ -256,6 +264,7 @@ export default function Home() {
       status: 'converting',
     }));
     setItems((previous) => [...previous, ...additions]);
+    setResultNotice('converting');
 
     const requestedQuality = qualityRef.current;
     const results = await Promise.all(
@@ -286,6 +295,7 @@ export default function Home() {
         return { ...item, ...result, status: 'done', error: undefined };
       }),
     );
+    setResultNotice(results.some((result) => !('error' in result)) ? 'ready' : '');
   }
 
   function removeItem(id: string) {
@@ -300,6 +310,7 @@ export default function Home() {
     itemsRef.current.forEach((item) => URL.revokeObjectURL(item.previewUrl));
     setItems([]);
     setMessage('');
+    setResultNotice('');
     if (inputRef.current) inputRef.current.value = '';
   }
 
@@ -338,6 +349,7 @@ export default function Home() {
     0,
   );
   const allComplete = items.length > 0 && completed.length === items.length;
+  const convertingCount = items.filter((item) => item.status === 'converting').length;
 
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
@@ -448,6 +460,20 @@ export default function Home() {
                 </p>
               )}
 
+              {resultNotice && (
+                <a
+                  className={`result-notice mt-4 ${resultNotice === 'ready' ? 'is-ready' : ''}`}
+                  href="#results"
+                  aria-live="polite"
+                >
+                  {resultNotice === 'converting' ? (
+                    <><LoaderCircle className="size-4 animate-spin" aria-hidden="true" />{convertingCount}枚を変換中です。結果は下部に表示されます。</>
+                  ) : (
+                    <><Check className="size-4" aria-hidden="true" />変換されました。下の結果から保存できます。<span aria-hidden="true">↓</span></>
+                  )}
+                </a>
+              )}
+
               <div className="mt-6 rounded-2xl bg-[#f1f5f8] p-4 sm:p-5">
                 <div className="flex items-end justify-between gap-4">
                   <div>
@@ -488,7 +514,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-16" aria-labelledby="results-heading">
+      <section id="results" className={`scroll-mt-5 mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-16 ${resultNotice === 'ready' ? 'results-section is-ready' : 'results-section'}`} aria-labelledby="results-heading">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-[#10233f] pb-5">
           <div>
             <p className="text-[11px] font-black tracking-[0.18em] text-[#155eef]">02 / RESULT</p>
@@ -536,7 +562,7 @@ export default function Home() {
                       <span className="rounded-full bg-[#e7f9ed] px-2 py-1 text-xs font-black text-[#16834d]">{getReduction(item.file.size, item.webp!.size)}%削減</span>
                     </div>
                   )}
-                  {item.width && item.height && <p className="mt-1 text-xs text-[#8a96a5]">{item.width.toLocaleString()} × {item.height.toLocaleString()} px</p>}
+                  {item.width && item.height && <p className="mt-1 text-xs text-[#8a96a5]">{item.width.toLocaleString()} × {item.height.toLocaleString()} px{item.resized && '（横幅を1920pxに縮小）'}</p>}
                 </div>
                 {item.status === 'done' && item.webp && (
                   <Button variant="outline" size="lg" className="h-10 justify-self-start rounded-xl border-[#10233f]/20 px-4 font-bold text-[#10233f] hover:bg-[#f1f5f8] sm:justify-self-end" onClick={() => triggerDownload(item.webp!, webpName(item.file.name))}>
