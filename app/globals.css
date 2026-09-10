@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+  --background: #f5f8f5;
+  --foreground: #10233f;
+  --card: #ffffff;
+  --card-foreground: #10233f;
+  --popover: #ffffff;
+  --popover-foreground: #10233f;
+  --primary: #155eef;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf0ff;
+  --secondary-foreground: #10233f;
+  --muted: #edf1f5;
+  --muted-foreground: #66758a;
+  --accent: #c8f45f;
+  --accent-foreground: #10233f;
+  --destructive: #ba2a33;
+  --border: #d9e0e8;
+  --input: #cbd5e1;
+  --ring: #155eef;
+  --radius: 0.75rem;
+  --font-sans: Inter, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+}
+
+.dark {
+  --background: #0b1729;
+  --foreground: #f7fafc;
+  --card: #10233f;
+  --card-foreground: #f7fafc;
+  --popover: #10233f;
+  --popover-foreground: #f7fafc;
+  --primary: #7ca5ff;
+  --primary-foreground: #08152a;
+  --secondary: #1c3556;
+  --secondary-foreground: #f7fafc;
+  --muted: #1b304c;
+  --muted-foreground: #aebbd0;
+  --accent: #c8f45f;
+  --accent-foreground: #10233f;
+  --destructive: #ff7b82;
+  --border: #324967;
+  --input: #48617f;
+  --ring: #7ca5ff;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { @apply scroll-smooth font-sans; }
+  body { @apply bg-background text-foreground antialiased; }
+  button, a, input { -webkit-tap-highlight-color: transparent; }
+  ::selection { background: #c8f45f; color: #10233f; }
+}
+
+.grid-paper {
+  background-image:
+    linear-gradient(rgba(16, 35, 63, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 35, 63, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.drop-zone {
+  display: flex;
+  min-height: 250px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: 2px dashed #8aa0bd;
+  border-radius: 1.25rem;
+  background: #fbfdff;
+  padding: 1.5rem;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.drop-zone:hover,
+.drop-zone:focus-visible,
+.drop-zone.is-dragging {
+  border-color: #155eef;
+  background: #f2f6ff;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+@media (max-width: 639px) {
+  .drop-zone { min-height: 225px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
