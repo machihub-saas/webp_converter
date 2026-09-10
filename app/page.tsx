@@ -405,6 +405,7 @@ export default function Home() {
                 <div>
                   <p className="text-[11px] font-black tracking-[0.18em] text-[#155eef]">01 / CONVERT</p>
                   <h2 className="mt-1 text-xl font-black tracking-[-0.035em] text-[#10233f]">画像をWebPにする</h2>
+                  <p className="mt-1 text-xs font-semibold text-[#66758a]">横幅1920pxを超える画像は、最大幅1920pxに自動リサイズします。</p>
                 </div>
                 {items.length > 0 && (
                   <Button variant="ghost" size="sm" onClick={clearItems} className="text-[#526174]">
