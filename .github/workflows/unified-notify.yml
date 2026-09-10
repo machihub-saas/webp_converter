@@ -1,0 +1,56 @@
+name: Unified Notifications
+
+on:
+  push:
+    branches:
+      - main # 対象のブランチ名（masterの場合は適宜変更してください）
+    # 全てのPushで発火させるため、paths: ブロックを削除
+  check_run:
+    types: [completed]
+
+jobs:
+  # ---------------------------------------------------
+  # 1. GitHub Push時の処理
+  # ---------------------------------------------------
+  notify-github-push:
+    if: github.event_name == 'push'
+    # 呼び出し先を @master に修正
+    uses: machihub-saas/shared-workflows-mhsaas/.github/workflows/pushover-reusable.yml@master
+    with:
+      title: "[GitHub] Push完了"
+      message: |
+        リポジトリ: ${{ github.repository }}
+        ブランチ: ${{ github.ref_name }}
+        コミット: ${{ github.event.head_commit.message }}
+      url: ${{ github.event.head_commit.url }}
+      url_title: "コミット詳細を見る"
+    secrets:
+      PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
+      PUSHOVER_USER: ${{ secrets.PUSHOVER_USER }}
+
+  # ---------------------------------------------------
+  # 2. Cloudflare デプロイ時の処理
+  # ---------------------------------------------------
+  notify-cloudflare-build:
+    if: >
+      github.event_name == 'check_run' &&
+      github.event.check_run.app.slug == 'cloudflare-workers-and-pages'
+    # 呼び出し先を @master に修正
+    uses: machihub-saas/shared-workflows-mhsaas/.github/workflows/pushover-reusable.yml@master
+    with:
+      # 成功時と失敗時でタイトルを動的に変更（Build Success / Build Failed）
+      title: >
+        ${{ github.event.check_run.conclusion == 'success' && '[SUCCESS] Build Success' || '[ERROR] Build Failed' }} - Cloudflare Pages
+      # Cloudflareのサマリー情報（Preview URL含む）をメッセージに追記
+      message: |
+        リポジトリ: ${{ github.repository }}
+        結果: ${{ github.event.check_run.conclusion }}
+
+        【デプロイ詳細】
+        ${{ github.event.check_run.output.summary }}
+      url: ${{ github.event.check_run.details_url }}
+      url_title: "ビルドログを確認する"
+      priority: ${{ github.event.check_run.conclusion == 'success' && '0' || '1' }}
+    secrets:
+      PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
+      PUSHOVER_USER: ${{ secrets.PUSHOVER_USER }}
