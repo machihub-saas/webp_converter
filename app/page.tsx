@@ -644,7 +644,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-[1240px] flex-col gap-5 px-5 py-8 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="font-bold tracking-[0.08em]">machi-hub tools</div>
           <nav className="flex flex-wrap gap-5 text-white/65" aria-label="フッターナビゲーション">
-            <a className="hover:text-white" href="#privacy">Privacy Policy</a>
+            <a className="hover:text-white" href="/privacy">Privacy Policy</a>
             <a className="hover:text-white" href="https://www.machihub-design.com/" target="_blank" rel="noreferrer">machi-hub</a>
           </nav>
           <p className="text-white/45">© machi-hub Inc.</p>
