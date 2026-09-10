@@ -80,9 +80,20 @@
 @layer base {
   * { @apply border-border outline-ring/50; }
   html { @apply scroll-smooth font-sans; }
-  body { @apply bg-background text-foreground antialiased; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    line-break: strict;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  :where(h1, h2, h3, p, a, button, label, output) { text-wrap: pretty; }
   button, a, input { -webkit-tap-highlight-color: transparent; }
   ::selection { background: #c8f45f; color: #10233f; }
+}
+
+.phrase {
+  display: inline-block;
+  max-width: 100%;
 }
 
 .grid-paper {

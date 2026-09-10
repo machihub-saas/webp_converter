@@ -343,11 +343,11 @@ export default function Home() {
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <header className="border-b border-white/12 bg-[#10233f] text-white">
         <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-5 sm:px-8">
-          <a className="group flex items-center gap-3" href="#top" aria-label="machi-hub tools トップ">
+          <a className="group flex shrink-0 items-center gap-3 whitespace-nowrap" href="#top" aria-label="machi-hub tools トップ">
             <span className="grid size-8 place-items-center rounded-full bg-[#c8f45f] text-[11px] font-black tracking-[-0.08em] text-[#10233f] transition-transform group-hover:rotate-6">mh</span>
-            <span className="text-sm font-bold tracking-[0.08em]">machi-hub tools</span>
+            <span className="hidden text-sm font-bold tracking-[0.08em] min-[370px]:inline">machi-hub tools</span>
           </a>
-          <div className="flex items-center gap-2 text-xs font-semibold text-white/70">
+          <div className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs font-semibold text-white/70">
             <span className="hidden sm:inline">TOOL</span>
             <span className="text-[#c8f45f]">#001</span>
             <span className="h-3 w-px bg-white/25" />
@@ -363,14 +363,21 @@ export default function Home() {
             <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#10233f]/15 bg-white px-3 py-1.5 text-xs font-bold tracking-[0.08em] text-[#224d36]">
               <ShieldCheck className="size-4" aria-hidden="true" />無料・登録不要
             </p>
-            <h1 className="text-balance text-[clamp(2.8rem,7vw,5.4rem)] font-black leading-[0.96] tracking-[-0.075em] text-[#10233f]">
-              PNG・JPEGを<br />
-              <span className="relative inline-block text-[#155eef]">
-                WebP<span className="absolute -bottom-1 left-0 -z-10 h-2 w-full -rotate-1 bg-[#c8f45f]" />
-              </span>に変換。
+            <h1 className="text-[clamp(2.65rem,11vw,5.25rem)] font-black leading-[0.96] tracking-[-0.075em] text-[#10233f] lg:text-[clamp(3.25rem,5.2vw,4.1rem)]">
+              <span className="phrase whitespace-nowrap">PNG・JPEGを</span>
+              <br />
+              <span className="phrase whitespace-nowrap">
+                <span className="relative inline-block text-[#155eef]">
+                  WebP<span className="absolute -bottom-1 left-0 -z-10 h-2 w-full -rotate-1 bg-[#c8f45f]" />
+                </span>に
+              </span>
+              <span className="phrase whitespace-nowrap">変換。</span>
             </h1>
-            <p className="mt-7 max-w-[34rem] text-base leading-8 text-[#42526a] sm:text-lg">
-              画像を選んだら、あとはダウンロードするだけ。処理はすべてこのブラウザの中で完了します。
+            <p className="mt-7 max-w-[34rem] text-pretty text-base leading-8 text-[#42526a] sm:text-lg">
+              <span className="phrase">画像を選んだら、</span>
+              <span className="phrase">あとはダウンロードするだけ。</span>
+              <span className="phrase">処理はすべて、</span>
+              <span className="phrase">このブラウザの中で完了します。</span>
             </p>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-[#42526a]">
               <span className="flex items-center gap-2"><Check className="size-4 text-[#16834d]" />複数画像OK</span>
@@ -382,7 +389,7 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -bottom-3 -right-3 h-full w-full rounded-[28px] bg-[#10233f] sm:-bottom-4 sm:-right-4" />
             <div className="relative rounded-[26px] border-2 border-[#10233f] bg-white p-4 sm:p-7">
-              <div className="mb-5 flex items-center justify-between">
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="text-[11px] font-black tracking-[0.18em] text-[#155eef]">01 / CONVERT</p>
                   <h2 className="mt-1 text-xl font-black tracking-[-0.035em] text-[#10233f]">画像をWebPにする</h2>
@@ -424,7 +431,10 @@ export default function Home() {
                     <span className="hidden sm:inline">ここに画像をドロップ</span>
                     <span className="sm:hidden">画像を選択</span>
                   </p>
-                  <p className="mt-1 text-sm text-[#66758a]">PNG・JPG・JPEG / 複数選択できます</p>
+                  <p className="mt-1 flex flex-wrap justify-center gap-x-1 text-sm text-[#66758a]">
+                    <span className="phrase whitespace-nowrap">PNG・JPG・JPEG</span>
+                    <span className="phrase whitespace-nowrap">/ 複数選択できます</span>
+                  </p>
                 </div>
                 <span className="inline-flex h-11 items-center rounded-xl bg-[#155eef] px-5 text-sm font-bold text-white shadow-[0_4px_0_#0b3da8]">
                   ＋ 画像を選択
@@ -432,8 +442,9 @@ export default function Home() {
               </button>
 
               {message && (
-                <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-[#ba2a33]" role="alert">
-                  <X className="size-4" />{message}
+                <p className="mt-3 flex items-start gap-2 text-pretty text-sm font-semibold text-[#ba2a33]" role="alert">
+                  <X className="mt-0.5 size-4 shrink-0" />
+                  <span className="break-words">{message}</span>
                 </p>
               )}
 
@@ -465,8 +476,11 @@ export default function Home() {
               <div className="mt-5 flex items-start gap-3 rounded-xl border border-[#9fd7b6] bg-[#eefbf2] px-4 py-3.5 text-[#225f3e]">
                 <LockKeyhole className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
                 <div>
-                  <p className="text-sm font-black">画像はアップロードされません。</p>
-                  <p className="mt-0.5 text-xs leading-5 text-[#3d7657]">変換処理はすべてお使いのブラウザ内で実行されます。</p>
+                  <p className="text-sm font-black"><span className="phrase">画像はアップロードされません。</span></p>
+                  <p className="mt-0.5 text-xs leading-5 text-[#3d7657]">
+                    <span className="phrase">変換処理はすべて、</span>
+                    <span className="phrase">お使いのブラウザ内で実行されます。</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -487,7 +501,10 @@ export default function Home() {
           <div className="grid min-h-56 place-items-center border-x border-b border-[#d9e0e8] bg-white px-6 text-center">
             <div>
               <FileImage className="mx-auto size-10 text-[#9ba8b7]" strokeWidth={1.5} aria-hidden="true" />
-              <p className="mt-3 font-bold text-[#526174]">画像を選択すると、ここに変換結果が表示されます。</p>
+              <p className="mt-3 font-bold text-[#526174]">
+                <span className="phrase">画像を選択すると、</span>
+                <span className="phrase">ここに変換結果が表示されます。</span>
+              </p>
             </div>
           </div>
         ) : (
@@ -534,7 +551,10 @@ export default function Home() {
         {allComplete && (
           <div className="mt-6 grid gap-5 rounded-[22px] bg-[#10233f] p-5 text-white sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
             <div>
-              <p className="flex items-center gap-2 text-lg font-black"><Zap className="size-5 fill-[#c8f45f] text-[#c8f45f]" />{completed.length}枚の画像を変換しました。</p>
+              <p className="flex items-start gap-2 text-pretty text-lg font-black leading-7">
+                <Zap className="mt-1 size-5 shrink-0 fill-[#c8f45f] text-[#c8f45f]" />
+                <span>{completed.length}枚の画像を変換しました。</span>
+              </p>
               <div className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-2 text-sm text-white/65">
                 <span>元データ <b className="ml-1 text-white">{formatFileSize(originalTotal)}</b></span>
                 <span>WebP <b className="ml-1 text-white">{formatFileSize(convertedTotal)}</b></span>
@@ -555,8 +575,16 @@ export default function Home() {
             <LockKeyhole className="size-7" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="text-xl font-black tracking-[-0.035em] text-[#10233f]">あなたの画像は、あなたの端末の中だけ。</h2>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">元画像も変換後のWebPも、外部サーバーへ送信・保存しません。履歴やファイル名も残らず、ページを閉じればデータは消えます。</p>
+            <h2 className="text-xl font-black leading-8 tracking-[-0.035em] text-[#10233f]">
+              <span className="phrase">あなたの画像は、</span>
+              <span className="phrase">あなたの端末の中だけ。</span>
+            </h2>
+            <p className="mt-2 max-w-3xl text-pretty text-sm leading-7 text-[#526174] sm:text-base">
+              <span className="phrase">元画像も変換後のWebPも、</span>
+              <span className="phrase">外部サーバーへ送信・保存しません。</span>
+              <span className="phrase">履歴やファイル名も残らず、</span>
+              <span className="phrase">ページを閉じればデータは消えます。</span>
+            </p>
           </div>
         </div>
       </section>
@@ -565,11 +593,19 @@ export default function Home() {
         <div className="mx-auto grid max-w-[1240px] gap-8 px-5 py-14 sm:px-8 md:grid-cols-[0.7fr_1.3fr] md:py-20">
           <div>
             <p className="text-[11px] font-black tracking-[0.18em] text-[#155eef]">ABOUT US</p>
-            <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-[#10233f]">このツールを<br className="hidden md:block" />つくっている会社</h2>
+            <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-[#10233f]">
+              <span className="phrase">このツールを</span>
+              <span className="phrase">つくっている会社</span>
+            </h2>
           </div>
           <div className="border-l-4 border-[#c8f45f] pl-5 sm:pl-8">
             <p className="text-xl font-black text-[#10233f]">株式会社machi-hub</p>
-            <p className="mt-3 max-w-2xl text-base leading-8 text-[#526174]">京都を拠点に、Web・グラフィック・空間・仕組みづくりまで、モノとコトを横断してディレクションするデザイン事務所です。</p>
+            <p className="mt-3 max-w-2xl text-pretty text-base leading-8 text-[#526174]">
+              <span className="phrase">京都を拠点に、</span>
+              <span className="phrase">Web・グラフィック・空間・仕組みづくりまで、</span>
+              <span className="phrase">モノとコトを横断して、</span>
+              <span className="phrase">ディレクションするデザイン事務所です。</span>
+            </p>
             <a className="mt-6 inline-flex items-center gap-2 border-b-2 border-[#10233f] pb-1 text-sm font-black text-[#10233f] transition-colors hover:border-[#155eef] hover:text-[#155eef]" href="https://www.machihub-design.com/" target="_blank" rel="noreferrer">
               machi-hubについて <ArrowUpRight className="size-4" aria-hidden="true" />
             </a>
