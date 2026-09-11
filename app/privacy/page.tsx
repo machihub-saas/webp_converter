@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ArrowLeft, LockKeyhole, ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー｜machi-hub WebP Converter',
   description: 'machi-hub WebP Converterのプライバシーポリシーです。',
+  alternates: {
+    canonical: '/privacy',
+  },
 };
 
 const sections = [
@@ -34,10 +38,10 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-white/12 bg-[#10233f] text-white">
         <div className="mx-auto flex h-16 max-w-[960px] items-center justify-between px-5 sm:px-8">
-          <a className="group flex items-center gap-3" href="/" aria-label="machi-hub tools トップへ戻る">
+          <Link className="group flex items-center gap-3" href="/" aria-label="machi-hub tools トップへ戻る">
             <span className="grid size-8 place-items-center rounded-full bg-[#c8f45f] text-[11px] font-black tracking-[-0.08em] text-[#10233f] transition-transform group-hover:rotate-6">mh</span>
             <span className="text-sm font-bold tracking-[0.08em]">machi-hub tools</span>
-          </a>
+          </Link>
           <span className="text-xs font-semibold text-white/70">Privacy Policy</span>
         </div>
       </header>
@@ -74,7 +78,7 @@ export default function PrivacyPage() {
         </div>
 
         <p className="mt-12 border-t border-[#d9e0e8] pt-5 text-xs text-[#7b899a]">制定日：2026年9月10日</p>
-        <a className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#10233f] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#155eef]" href="/"><ArrowLeft className="size-4" aria-hidden="true" />WebP Converterに戻る</a>
+        <Link className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#10233f] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#155eef]" href="/"><ArrowLeft className="size-4" aria-hidden="true" />WebP Converterに戻る</Link>
       </section>
     </main>
   );

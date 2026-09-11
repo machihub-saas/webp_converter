@@ -6,13 +6,16 @@ const description =
   'PNG・JPEG画像を無料でWebPに変換できるオンラインツール。登録不要で、画像は外部サーバーへアップロードされず、ブラウザ内で安全に変換できます。';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tools.machi-hub.jp'),
+  metadataBase: new URL('https://tool.machihub-design.com'),
   title,
   description,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title,
     description,
-    url: 'https://tools.machi-hub.jp/webp/',
+    url: 'https://tool.machihub-design.com/',
     siteName: 'machi-hub tools',
     type: 'website',
     images: [{ url: '/og-image.webp', width: 1200, height: 630, alt: 'machi-hub WebP Converter' }],
