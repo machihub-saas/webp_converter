@@ -601,11 +601,23 @@ export default function Home() {
       <section className="border-y border-[#10233f]/10 bg-white" aria-labelledby="faq-heading">
         <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-16">
           <p className="text-[11px] font-black tracking-[0.18em] text-[#155eef]">FAQ</p>
-          <h2 id="faq-heading" className="mt-2 text-2xl font-black tracking-[-0.04em] text-[#10233f]">WebP変換についてよくある質問</h2>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
+            <h2 id="faq-heading" className="text-2xl font-black tracking-[-0.04em] text-[#10233f]">WebP変換についてよくある質問</h2>
+            <Link
+              className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#155eef] px-4 text-sm font-black text-white shadow-[0_3px_0_#0b3da8] hover:bg-[#0d4fd2]"
+              href="/webp"
+              onClick={(event) => {
+                event.preventDefault();
+                window.location.assign('/webp');
+              }}
+            >
+              WebPを図解で読む <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </div>
           <div className="mt-7 divide-y divide-[#d9e0e8] border-y border-[#d9e0e8]">
             <details className="group py-5">
               <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">WebPとは何ですか？</summary>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">WebPは、Webサイトでの表示に適した画像形式です。PNGやJPEGと比べてファイル容量を小さくできる場合があり、ページの読み込みを軽くする用途に向いています。<Link className="ml-1 font-bold text-[#155eef] underline underline-offset-4" href="/webp">WebPについて詳しく見る</Link></p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">WebPは、Webサイトでの表示に適した画像形式です。PNGやJPEGと比べてファイル容量を小さくできる場合があり、ページの読み込みを軽くする用途に向いています。<Link className="ml-1 font-bold text-[#155eef] underline underline-offset-4" href="/webp" onClick={(event) => { event.preventDefault(); window.location.assign('/webp'); }}>WebPについて詳しく見る</Link></p>
             </details>
             <details className="group py-5">
               <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">画像はアップロードされますか？</summary>
