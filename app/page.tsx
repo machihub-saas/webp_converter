@@ -605,7 +605,7 @@ export default function Home() {
           <div className="mt-7 divide-y divide-[#d9e0e8] border-y border-[#d9e0e8]">
             <details className="group py-5">
               <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">WebPとは何ですか？</summary>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">WebPは、Webサイトでの表示に適した画像形式です。PNGやJPEGと比べてファイル容量を小さくできる場合があり、ページの読み込みを軽くする用途に向いています。</p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">WebPは、Webサイトでの表示に適した画像形式です。PNGやJPEGと比べてファイル容量を小さくできる場合があり、ページの読み込みを軽くする用途に向いています。<Link className="ml-1 font-bold text-[#155eef] underline underline-offset-4" href="/webp">WebPについて詳しく見る</Link></p>
             </details>
             <details className="group py-5">
               <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">画像はアップロードされますか？</summary>
@@ -672,6 +672,7 @@ export default function Home() {
           <div className="font-bold tracking-[0.08em]">machi-hub tools</div>
           <nav className="flex flex-wrap gap-5 text-white/65" aria-label="フッターナビゲーション">
             <Link className="hover:text-white" href="/privacy">Privacy Policy</Link>
+            <Link className="hover:text-white" href="/webp">WebPとは</Link>
             <a className="hover:text-white" href="https://www.machihub-design.com/" target="_blank" rel="noreferrer">machi-hub</a>
           </nav>
           <p className="text-white/45">© machi-hub Inc.</p>
