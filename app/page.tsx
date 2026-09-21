@@ -598,6 +598,31 @@ export default function Home() {
         )}
       </section>
 
+      <section className="border-y border-[#10233f]/10 bg-white" aria-labelledby="faq-heading">
+        <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-16">
+          <p className="text-[11px] font-black tracking-[0.18em] text-[#155eef]">FAQ</p>
+          <h2 id="faq-heading" className="mt-2 text-2xl font-black tracking-[-0.04em] text-[#10233f]">WebP変換についてよくある質問</h2>
+          <div className="mt-7 divide-y divide-[#d9e0e8] border-y border-[#d9e0e8]">
+            <details className="group py-5">
+              <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">WebPとは何ですか？</summary>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">WebPは、Webサイトでの表示に適した画像形式です。PNGやJPEGと比べてファイル容量を小さくできる場合があり、ページの読み込みを軽くする用途に向いています。</p>
+            </details>
+            <details className="group py-5">
+              <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">画像はアップロードされますか？</summary>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">アップロードされません。画像の選択からWebPへの変換まで、すべてお使いのブラウザ内で完了します。元画像・変換後の画像・ファイル名を外部サーバーへ送信することはありません。</p>
+            </details>
+            <details className="group py-5">
+              <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">大きな画像は切り抜かれますか？</summary>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">切り抜かれません。横幅が1920pxを超える画像は、縦横比を保ったまま横幅1920pxに縮小し、画像全体を残した状態でWebPへ変換します。</p>
+            </details>
+            <details className="group py-5">
+              <summary className="cursor-pointer list-none pr-8 text-base font-black text-[#10233f] marker:hidden">画質はどれくらいがおすすめですか？</summary>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[#526174] sm:text-base">迷った場合は、初期設定の80%がおすすめです。ファイル容量をさらに小さくしたい場合は画質を下げ、写真や細部を優先したい場合は画質を上げて調整してください。</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
       <section id="privacy" className="border-y border-[#10233f]/10 bg-[#e9f0ff]">
         <div className="mx-auto grid max-w-[1240px] gap-7 px-5 py-10 sm:px-8 md:grid-cols-[auto_1fr] md:items-center md:py-12">
           <div className="grid size-16 place-items-center rounded-2xl bg-[#155eef] text-white shadow-[6px_6px_0_#10233f]">
